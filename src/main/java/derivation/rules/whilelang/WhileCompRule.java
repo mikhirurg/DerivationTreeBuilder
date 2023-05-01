@@ -1,12 +1,10 @@
 package derivation.rules.whilelang;
 
-import derivation.rules.Derivable;
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import parser.syntax.whilelang.statements.WhileComp;
 import states.State;
 import states.WhileState;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WhileCompRule extends WhileDerivationRule implements DerivationRule {
 
@@ -19,6 +17,15 @@ public class WhileCompRule extends WhileDerivationRule implements DerivationRule
 
     @Override
     public State getState() {
-        return state;
+        return initialState;
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processCompRule(this);
+    }
+
+    public WhileComp getComp() {
+        return comp;
     }
 }

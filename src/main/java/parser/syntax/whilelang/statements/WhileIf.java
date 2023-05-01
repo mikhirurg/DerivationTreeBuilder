@@ -1,13 +1,10 @@
 package parser.syntax.whilelang.statements;
 
-import derivation.rules.Derivable;
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import derivation.rules.DerivationTreeBuilder;
 import derivation.rules.whilelang.WhileDerivationTreeBuilder;
-import derivation.rules.whilelang.WhileIfFFRule;
-import derivation.rules.whilelang.WhileIfTTRule;
 import parser.syntax.whilelang.booleanexp.WhileBooleanExpression;
-import states.State;
-import states.WhileState;
 
 public class WhileIf implements WhileStatement {
 
@@ -43,5 +40,10 @@ public class WhileIf implements WhileStatement {
     @Override
     public void accept(DerivationTreeBuilder builder) {
         ((WhileDerivationTreeBuilder) builder).processIf(this);
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processIf(this);
     }
 }

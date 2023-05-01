@@ -2,6 +2,7 @@ package derivation.rules.whilelang;
 
 import derivation.rules.Derivable;
 import derivation.rules.DerivationTreeBuilder;
+import derivation.rules.DerivationTreeNode;
 import parser.syntax.SyntaxNode;
 import parser.syntax.whilelang.statements.*;
 import states.State;
@@ -42,6 +43,7 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
         if (whileStatement.getCondition().evaluate(state)) {
             Derivable rule = new WhileWhileTTRule(whileStatement, state);
             baseNode.setRule(rule);
+            baseNode.setInitialState(state.cloneState());
 
             currentNode = new DerivationTreeNode();
             DerivationTreeNode subNode1 = currentNode;
@@ -63,6 +65,7 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
         DerivationTreeNode baseNode = currentNode;
         Derivable rule = new WhileCompRule(comp, state);
         baseNode.setRule(rule);
+        baseNode.setInitialState(state.cloneState());
 
         currentNode = new DerivationTreeNode();
         DerivationTreeNode subNode1 = currentNode;
@@ -79,6 +82,7 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
     public void processIf(WhileIf ifStatement) {
 
         DerivationTreeNode baseNode = currentNode;
+        baseNode.setInitialState(state.cloneState());
 
         if (ifStatement.getCondition().evaluate(state)) {
             Derivable rule = new WhileIfTTRule(ifStatement, state);
@@ -103,6 +107,7 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
 
     public void processAssignment(WhileAssignment assignmentStatement) {
         DerivationTreeNode baseNode = currentNode;
+        baseNode.setInitialState(state.cloneState());
         state.update(assignmentStatement.getVariable(), assignmentStatement.getExpression().evaluate(state));
         baseNode.setRule(new WhileAssignmentRule(assignmentStatement, state));
     }

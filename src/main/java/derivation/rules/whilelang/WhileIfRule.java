@@ -10,4 +10,8 @@ public abstract class WhileIfRule extends WhileDerivationRule {
         super(state);
         this.ifStatement = ifStatement;
     }
+
+    public WhileIf getIfStatement() {
+        return ifStatement;
+    }
 }

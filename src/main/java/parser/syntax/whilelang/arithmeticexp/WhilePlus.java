@@ -1,5 +1,7 @@
 package parser.syntax.whilelang.arithmeticexp;
 
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import states.WhileState;
 
 public class WhilePlus implements WhileArithmeticExpression {
@@ -27,5 +29,10 @@ public class WhilePlus implements WhileArithmeticExpression {
     @Override
     public int evaluate(WhileState state) {
         return left.evaluate(state) + right.evaluate(state);
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processPlus(this);
     }
 }

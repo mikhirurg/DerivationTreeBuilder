@@ -10,4 +10,8 @@ public abstract class WhileWhileRule extends WhileDerivationRule {
         super(state);
         this.whileStatement = whileStatement;
     }
+
+    public WhileWhile getWhileStatement() {
+        return whileStatement;
+    }
 }

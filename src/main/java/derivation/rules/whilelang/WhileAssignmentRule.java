@@ -1,5 +1,7 @@
 package derivation.rules.whilelang;
 
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import parser.syntax.whilelang.statements.WhileAssignment;
 import states.WhileState;
 
@@ -13,7 +15,12 @@ public class WhileAssignmentRule extends WhileDerivationRule implements Derivati
 
     @Override
     public WhileState getState() {
-        return state;
+        return initialState;
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processAssignmentRule(this);
     }
 
     public WhileAssignment getAssignment() {

@@ -1,8 +1,10 @@
 package derivation.rules;
 
-import derivation.rules.whilelang.DerivationTreeNode;
+import converter.DerivationTreeConverter;
 import states.State;
 
 public interface Derivable {
     State getState();
+
+    void accept(DerivationTreeConverter converter);
 }

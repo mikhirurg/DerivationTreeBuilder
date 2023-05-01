@@ -1,5 +1,7 @@
 package parser.syntax.whilelang.booleanexp;
 
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import parser.syntax.whilelang.arithmeticexp.WhileArithmeticExpression;
 import states.WhileState;
 
@@ -28,6 +30,11 @@ public class WhileEq implements WhileBooleanExpression {
     @Override
     public boolean evaluate(WhileState state) {
         return left.evaluate(state) == right.evaluate(state);
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processEq(this);
     }
 
 }

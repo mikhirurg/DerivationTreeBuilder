@@ -1,5 +1,7 @@
 package parser.syntax.whilelang.booleanexp;
 
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import states.WhileState;
 
 public class WhileNot implements WhileBooleanExpression {
@@ -21,5 +23,10 @@ public class WhileNot implements WhileBooleanExpression {
     @Override
     public boolean evaluate(WhileState state) {
         return !expression.evaluate(state);
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processNot(this);
     }
 }

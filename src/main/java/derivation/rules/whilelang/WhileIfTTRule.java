@@ -1,12 +1,10 @@
 package derivation.rules.whilelang;
 
-import derivation.rules.Derivable;
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import parser.syntax.whilelang.statements.WhileIf;
-import parser.syntax.whilelang.statements.WhileStatement;
 import states.State;
 import states.WhileState;
-
-import java.util.ArrayList;
 
 public class WhileIfTTRule extends WhileIfRule implements DerivationRule {
 
@@ -16,6 +14,11 @@ public class WhileIfTTRule extends WhileIfRule implements DerivationRule {
 
     @Override
     public State getState() {
-        return state;
+        return initialState;
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processIfTTRule(this);
     }
 }

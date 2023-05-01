@@ -1,11 +1,9 @@
 package parser.syntax.whilelang.statements;
 
-import derivation.rules.Derivable;
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import derivation.rules.DerivationTreeBuilder;
-import derivation.rules.whilelang.WhileCompRule;
 import derivation.rules.whilelang.WhileDerivationTreeBuilder;
-import states.State;
-import states.WhileState;
 
 public class WhileComp implements WhileStatement {
 
@@ -34,5 +32,10 @@ public class WhileComp implements WhileStatement {
     @Override
     public void accept(DerivationTreeBuilder builder) {
         ((WhileDerivationTreeBuilder) builder).processComp(this);
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processComp(this);
     }
 }

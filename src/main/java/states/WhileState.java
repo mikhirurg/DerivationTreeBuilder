@@ -1,5 +1,7 @@
 package states;
 
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import parser.syntax.whilelang.arithmeticexp.WhileVar;
 
 import java.util.HashMap;
@@ -30,10 +32,19 @@ public class WhileState implements State {
         return map.get(variable);
     }
 
+    public Map<WhileVar, Integer> getMap() {
+        return map;
+    }
+
     @Override
     public String getTextRepresentation() {
         return map.entrySet().stream()
                 .map(e -> e.getKey().textRepresentation() + " = " + e.getValue().toString())
                 .collect(Collectors.joining("\n"));
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processWhileState(this);
     }
 }

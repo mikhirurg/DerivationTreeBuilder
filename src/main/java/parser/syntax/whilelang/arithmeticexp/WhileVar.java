@@ -1,5 +1,7 @@
 package parser.syntax.whilelang.arithmeticexp;
 
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import parser.syntax.whilelang.arithmeticexp.exceptions.UninitializedVariableException;
 import states.WhileState;
 
@@ -47,5 +49,10 @@ public class WhileVar implements WhileArithmeticExpression {
         } else {
             throw new UninitializedVariableException(varName);
         }
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processVar(this);
     }
 }

@@ -1,11 +1,11 @@
 package parser.syntax;
 
-import derivation.rules.Derivable;
+import converter.DerivationTreeConverter;
 import derivation.rules.DerivationTreeBuilder;
-import states.State;
 
 public interface SyntaxNode {
     String textRepresentation();
-
     void accept(DerivationTreeBuilder builder);
+
+    void accept(DerivationTreeConverter converter);
 }

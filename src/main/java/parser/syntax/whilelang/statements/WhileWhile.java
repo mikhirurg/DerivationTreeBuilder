@@ -1,5 +1,7 @@
 package parser.syntax.whilelang.statements;
 
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import derivation.rules.DerivationTreeBuilder;
 import derivation.rules.whilelang.WhileDerivationTreeBuilder;
 import parser.syntax.whilelang.booleanexp.WhileBooleanExpression;
@@ -31,5 +33,10 @@ public class WhileWhile implements WhileStatement {
     @Override
     public void accept(DerivationTreeBuilder builder) {
         ((WhileDerivationTreeBuilder) builder).processWhile(this);
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processWhile(this);
     }
 }

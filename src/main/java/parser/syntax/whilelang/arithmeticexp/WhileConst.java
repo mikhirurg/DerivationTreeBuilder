@@ -1,5 +1,7 @@
 package parser.syntax.whilelang.arithmeticexp;
 
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import states.WhileState;
 
 public class WhileConst implements WhileArithmeticExpression{
@@ -21,5 +23,10 @@ public class WhileConst implements WhileArithmeticExpression{
     @Override
     public int evaluate(WhileState state) {
         return number.getValue();
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processConst(this);
     }
 }

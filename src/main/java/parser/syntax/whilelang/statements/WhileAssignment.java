@@ -1,13 +1,11 @@
 package parser.syntax.whilelang.statements;
 
-import derivation.rules.Derivable;
+import converter.DerivationTreeConverter;
+import converter.WhileDerivationTreeConverter;
 import derivation.rules.DerivationTreeBuilder;
-import derivation.rules.whilelang.WhileAssignmentRule;
 import derivation.rules.whilelang.WhileDerivationTreeBuilder;
 import parser.syntax.whilelang.arithmeticexp.WhileArithmeticExpression;
 import parser.syntax.whilelang.arithmeticexp.WhileVar;
-import states.State;
-import states.WhileState;
 
 public class WhileAssignment implements WhileStatement {
 
@@ -36,5 +34,10 @@ public class WhileAssignment implements WhileStatement {
     @Override
     public void accept(DerivationTreeBuilder builder) {
         ((WhileDerivationTreeBuilder) builder).processAssignment(this);
+    }
+
+    @Override
+    public void accept(DerivationTreeConverter converter) {
+        ((WhileDerivationTreeConverter) converter).processAssignment(this);
     }
 }

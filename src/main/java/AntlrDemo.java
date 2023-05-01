@@ -1,5 +1,6 @@
+import converter.WhileASCIIDerivationTreeConverter;
 import derivation.rules.DerivationTreeBuilder;
-import derivation.rules.whilelang.DerivationTreeNode;
+import derivation.rules.DerivationTreeNode;
 import derivation.rules.whilelang.WhileDerivationTreeBuilder;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -15,9 +16,11 @@ import java.util.HashMap;
 
 public class AntlrDemo {
     public static void main(String[] args) {
-        //String program = "x:=5; y:=1; i:=1; while i <= x do (y := y * x; x := x - 1)";
+        // String program = "x:=5; y:=1; i:=1; while i <= x do (y := y * x; x := x - 1)";
 
-        String program = "x:=27; y:=8; z:=0; while y <= x do (z := z + 1; x := x - y)";
+        // String program = "x:=27; y:=8; z:=0; while y <= x do (z := z + 1; x := x - y)";
+
+        String program = "x:=27; y:=8; z:=0";
 
         WhileLexer whileLexer = new WhileLexer(CharStreams.fromString(program));
 
@@ -36,6 +39,10 @@ public class AntlrDemo {
         DerivationTreeBuilder builder = new WhileDerivationTreeBuilder();
         DerivationTreeNode derivationTree = builder.buildDerivationTree(p, new WhileState(new HashMap<>()));
 
-        System.out.println(builder.getState().getTextRepresentation());
+        WhileASCIIDerivationTreeConverter asciiDerivationTreeConverter = new WhileASCIIDerivationTreeConverter();
+
+        System.out.println(asciiDerivationTreeConverter.convert(derivationTree));
+
+        //System.out.println(builder.getState().getTextRepresentation());
     }
 }
