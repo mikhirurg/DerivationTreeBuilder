@@ -13,13 +13,9 @@ import java.util.stream.Collectors;
 public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeConverter {
 
     private final boolean IS_EXPLICIT_STATE_REPRESENTATION = true;
-
-    private final StringBuilder stringBuilder;
-
     private final StringBuilder currentBuilder;
 
     public WhileASCIIDerivationTreeConverter() {
-        this.stringBuilder = new StringBuilder();
         this.currentBuilder = new StringBuilder();
     }
 
