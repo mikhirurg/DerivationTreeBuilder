@@ -39,11 +39,11 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
     public void processWhile(WhileWhile whileStatement) {
 
         DerivationTreeNode baseNode = currentNode;
+        baseNode.setInitialState(state.cloneState());
 
         if (whileStatement.getCondition().evaluate(state)) {
             Derivable rule = new WhileWhileTTRule(whileStatement, state);
             baseNode.setRule(rule);
-            baseNode.setInitialState(state.cloneState());
 
             currentNode = new DerivationTreeNode();
             DerivationTreeNode subNode1 = currentNode;

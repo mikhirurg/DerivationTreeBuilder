@@ -45,63 +45,119 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         }
     }
 
+    private static class TextTreeNode {
+        private String text;
+        private final List<TextTreeNode> children;
+
+        private int layer;
+
+        private int positionInLayer = 0;
+
+        public TextTreeNode() {
+            children = new ArrayList<>();
+        }
+
+        public List<TextTreeNode> getChildren() {
+            return children;
+        }
+
+        public void addChild(TextTreeNode textTreeNode) {
+            textTreeNode.positionInLayer = positionInLayer + children.stream().mapToInt(TextTreeNode::getWidth).reduce(Integer::sum).orElse(0);
+            children.add(textTreeNode);
+        }
+
+        public int getWidth() {
+            return Math.max(text.length(), children.stream().mapToInt(TextTreeNode::getWidth).reduce(Integer::sum).orElse(0));
+        }
+
+        public int getPositionInLayer() {
+            return positionInLayer;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public int getLayer() {
+            return layer;
+        }
+
+        public void setLayer(int layer) {
+            this.layer = layer;
+        }
+    }
+
     @Override
     public String convert(DerivationTreeNode node) {
 
         Queue<Pair<Integer, DerivationTreeNode>> queue = new LinkedList<>();
         queue.add(Pair.of(0, node));
 
-        ArrayList<ArrayList<ArrayList<String>>> text = new ArrayList<>();
+        Map<DerivationTreeNode, TextTreeNode> parent = new HashMap<>();
+
+        TextTreeNode base = new TextTreeNode();
+        TextTreeNode currentNode = base;
+
+        int maxLayer = 0;
 
         while (queue.size() > 0) {
             Pair<Integer, DerivationTreeNode> treeNode = queue.poll();
 
-            if (treeNode.getFirst() == -1) {
-                text.get(text.size() - 1).add(new ArrayList<>());
-            } else {
-                processDerivationTreeNode(treeNode.getSecond());
-                String rule = currentBuilder.toString();
+            processDerivationTreeNode(treeNode.getSecond());
+            String rule = currentBuilder.toString();
 
-                if (text.size() <= treeNode.getFirst()) {
-                    text.add(new ArrayList<>());
-                    text.get(text.size() - 1).add(new ArrayList<>());
-                }
-                text.get(treeNode.getFirst()).get(text.get(treeNode.getFirst()).size() - 1).add(rule);
+            currentNode.setText(rule);
+            currentNode.setLayer(treeNode.getFirst());
 
-                for (DerivationTreeNode childNode : treeNode.getSecond().getChildren()) {
-                    queue.add(Pair.of(treeNode.first + 1, childNode));
-                }
+            maxLayer = Math.max(maxLayer, treeNode.getFirst());
 
-                if (treeNode.getSecond().getChildren().size() > 0) {
-                    queue.add(Pair.of(-1, null));
-                }
+            if (parent.containsKey(treeNode.getSecond())) {
+                parent.get(treeNode.getSecond()).addChild(currentNode);
             }
+
+            for (DerivationTreeNode childNode : treeNode.getSecond().getChildren()) {
+                queue.add(Pair.of(treeNode.getFirst() + 1, childNode));
+                parent.put(childNode, currentNode);
+            }
+
+            currentNode = new TextTreeNode();
+        }
+
+        ArrayList<StringBuilder> lines = new ArrayList<>();
+
+        for (int i = 0; i <= 2*maxLayer + 1; i++) {
+            lines.add(new StringBuilder());
+        }
+
+        Queue<TextTreeNode> textTreeNodes = new LinkedList<>();
+        textTreeNodes.add(base);
+
+        while (textTreeNodes.size() > 0) {
+            TextTreeNode treeNode = textTreeNodes.poll();
+
+            String transition = treeNode.getText().split("\n")[0];
+            String rule = treeNode.getText().split("\n")[1];
+
+            lines.get(treeNode.getLayer() * 2)
+                    .append(" ".repeat(Math.max(0, treeNode.getPositionInLayer() - lines.get(treeNode.getLayer() * 2).length())))
+                    .append(transition);
+
+            lines.get(treeNode.getLayer() * 2 + 1)
+                    .append(" ".repeat(Math.max(0, treeNode.getPositionInLayer() - lines.get(treeNode.getLayer() * 2 + 1).length())))
+                    .append("-".repeat(treeNode.getWidth() - rule.length())).append(rule);
+
+            textTreeNodes.addAll(treeNode.getChildren());
         }
 
         StringBuilder builder = new StringBuilder();
 
-        /*for (int i = text.size() - 1; i >= 0; i--) {
-            StringBuilder ruleLineBuilder = new StringBuilder();
-            StringBuilder statementLineBuilder = new StringBuilder();
-            for (String str : text.get(i)) {
-                String[] parts = str.split("\n");
-                String transition = parts[0];
-                String ruleName = parts[1];
-
-
-                int diff1 = Math.abs(ruleLineBuilder.length() - statementLineBuilder.length());
-                statementLineBuilder.append("<").append(statement).append(", ")
-                        .append(initialState).append(">").append(" -> ").append(finalState).append(" ");
-
-                int diff2 = Math.abs(ruleLineBuilder.length() - statementLineBuilder.length());
-                ruleLineBuilder.append(" ".repeat(diff1)).append("-".repeat(diff2)).append(ruleName).append(" ");
-
-                int diff3 = Math.abs(ruleLineBuilder.length() - statementLineBuilder.length());
-                statementLineBuilder.append(" ".repeat(diff3));
-
-            }
-            builder.append(ruleLineBuilder).append("\n").append(statementLineBuilder).append("\n");
-        }*/
+        for (int i = lines.size() - 1; i >= 0; i--) {
+            builder.append(lines.get(i)).append("\n");
+        }
 
         return builder.toString();
     }
