@@ -49,9 +49,11 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         private String text;
         private final List<TextTreeNode> children;
 
-        private int layer;
+        private TextTreeNode parent;
 
-        private int positionInLayer = 0;
+        private TextTreeNode previous;
+
+        private int layer;
 
         public TextTreeNode() {
             children = new ArrayList<>();
@@ -62,7 +64,6 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         }
 
         public void addChild(TextTreeNode textTreeNode) {
-            textTreeNode.positionInLayer = positionInLayer + children.stream().mapToInt(TextTreeNode::getWidth).reduce(Integer::sum).orElse(0);
             children.add(textTreeNode);
         }
 
@@ -71,7 +72,14 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         }
 
         public int getPositionInLayer() {
-            return positionInLayer;
+            if (previous == null) {
+                if (parent != null) {
+                    return parent.getPositionInLayer();
+                } else {
+                    return 0;
+                }
+            }
+            return previous.getPositionInLayer() + previous.getWidth();
         }
 
         public void setText(String text) {
@@ -89,6 +97,22 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         public void setLayer(int layer) {
             this.layer = layer;
         }
+
+        public TextTreeNode getParent() {
+            return parent;
+        }
+
+        public void setParent(TextTreeNode parent) {
+            this.parent = parent;
+        }
+
+        public TextTreeNode getPrevious() {
+            return previous;
+        }
+
+        public void setPrevious(TextTreeNode previous) {
+            this.previous = previous;
+        }
     }
 
     @Override
@@ -103,28 +127,40 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         TextTreeNode currentNode = base;
 
         int maxLayer = 0;
+        TextTreeNode prevNode = null;
 
         while (queue.size() > 0) {
             Pair<Integer, DerivationTreeNode> treeNode = queue.poll();
 
-            processDerivationTreeNode(treeNode.getSecond());
-            String rule = currentBuilder.toString();
+            if (treeNode.getSecond() == null) {
+                prevNode = null;
+            } else {
+                processDerivationTreeNode(treeNode.getSecond());
+                String rule = currentBuilder.toString();
 
-            currentNode.setText(rule);
-            currentNode.setLayer(treeNode.getFirst());
+                currentNode.setText(rule);
+                currentNode.setLayer(treeNode.getFirst());
+                currentNode.setParent(parent.get(treeNode.getSecond()));
+                if (prevNode != currentNode.getParent()) {
+                    currentNode.setPrevious(prevNode);
+                }
 
-            maxLayer = Math.max(maxLayer, treeNode.getFirst());
+                prevNode = currentNode;
 
-            if (parent.containsKey(treeNode.getSecond())) {
-                parent.get(treeNode.getSecond()).addChild(currentNode);
+                maxLayer = Math.max(maxLayer, treeNode.getFirst());
+
+                if (parent.containsKey(treeNode.getSecond())) {
+                    parent.get(treeNode.getSecond()).addChild(currentNode);
+                }
+
+                for (DerivationTreeNode childNode : treeNode.getSecond().getChildren()) {
+                    queue.add(Pair.of(treeNode.getFirst() + 1, childNode));
+                    parent.put(childNode, currentNode);
+                }
+                queue.add(Pair.of(-1, null));
+
+                currentNode = new TextTreeNode();
             }
-
-            for (DerivationTreeNode childNode : treeNode.getSecond().getChildren()) {
-                queue.add(Pair.of(treeNode.getFirst() + 1, childNode));
-                parent.put(childNode, currentNode);
-            }
-
-            currentNode = new TextTreeNode();
         }
 
         ArrayList<StringBuilder> lines = new ArrayList<>();

@@ -18,11 +18,11 @@ public class AntlrDemo {
     public static void main(String[] args) {
         //String program = "x:=5; y:=1; i:=1; while i <= x do (y := y * x; x := x - 1)";
 
-        // String program = "x:=27; y:=8; z:=0; while y <= x do (z := z + 1; x := x - y)";
+        String program = "x:=27; y:=8; z:=0; while y <= x do (z := z + 1; x := x - y)";
 
         //String program = "x:=27; (y:=8; z:=0)";
 
-        String program = "(i:=0; while i <= 3 do (i := i + 1)); while 0 <= i do (i := i - 1)";
+        //String program = "(i:=0; while i <= 3 do (i := i + 1)); while 0 <= i do (i := i - 1)";
 
         WhileLexer whileLexer = new WhileLexer(CharStreams.fromString(program));
 
@@ -45,6 +45,6 @@ public class AntlrDemo {
 
         System.out.println(asciiDerivationTreeConverter.convert(derivationTree));
 
-        //System.out.println(builder.getState().getTextRepresentation());
+        System.out.println(builder.getState().getTextRepresentation());
     }
 }
