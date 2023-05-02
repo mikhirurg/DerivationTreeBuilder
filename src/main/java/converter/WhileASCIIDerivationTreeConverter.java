@@ -8,7 +8,6 @@ import parser.syntax.whilelang.statements.*;
 import states.WhileState;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeConverter {
 
@@ -175,12 +174,13 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
             String rule = treeNode.getText().split("\n")[1];
 
             lines.get(treeNode.getLayer() * 2)
-                    .append(" ".repeat(Math.max(0, treeNode.getPositionInLayer() - lines.get(treeNode.getLayer() * 2).length())))
+                    .append(" ".repeat(Math.max(0, treeNode.getPositionInLayer() - lines.get(treeNode.getLayer() * 2).length() + 1)))
                     .append(transition);
 
+            String ruleDelimiter = treeNode.getChildren().size() == 0 ? " " : "-";
             lines.get(treeNode.getLayer() * 2 + 1)
-                    .append(" ".repeat(Math.max(0, treeNode.getPositionInLayer() - lines.get(treeNode.getLayer() * 2 + 1).length())))
-                    .append("-".repeat(treeNode.getWidth() - rule.length())).append(rule);
+                    .append(" ".repeat(Math.max(0, treeNode.getPositionInLayer() - lines.get(treeNode.getLayer() * 2 + 1).length() + 1)))
+                    .append(ruleDelimiter.repeat(treeNode.getWidth() - rule.length())).append(rule);
 
             textTreeNodes.addAll(treeNode.getChildren());
         }
@@ -476,7 +476,11 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
     @Override
     public void processSkipRule(WhileSkipRule skipRule) {
         currentBuilder.setLength(0);
-        currentBuilder.append("[skip]");
+        skipRule.getSkip().accept(this);
+        String skipText = currentBuilder.toString();
+
+        currentBuilder.setLength(0);
+        currentBuilder.append("[skip]").append("\n").append(skipText);
     }
 
     @Override
@@ -515,9 +519,13 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
             }
         } else {
             currentBuilder.append("s_{");
-            Set<Map.Entry<WhileVar, Integer>> entrySet = state.getMap().entrySet().stream().sorted().collect(Collectors.toCollection(LinkedHashSet::new));
-            for (Map.Entry<WhileVar, Integer> entry : entrySet) {
-                currentBuilder.append(entry.getValue()).append(", ");
+            ArrayList<Pair<WhileVar, Integer>> entrySet = new ArrayList<>();
+            for (Map.Entry<WhileVar, Integer> elem : state.getMap().entrySet()) {
+                entrySet.add(Pair.of(elem.getKey(), elem.getValue()));
+            }
+            entrySet.sort(Comparator.comparing(Pair::getFirst));
+            for (Pair<WhileVar, Integer> entry : entrySet) {
+                currentBuilder.append(entry.getSecond()).append(", ");
             }
             currentBuilder.setLength(currentBuilder.length() - 2);
 

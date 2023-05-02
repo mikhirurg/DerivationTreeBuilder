@@ -33,24 +33,27 @@ public class DerivationTreeBuilderViewer extends Application {
     @Override
     public void start(Stage stage) {
 
-        VBox vBox = new VBox();
+        BorderPane vertical = new BorderPane();
         BorderPane firstLine = new BorderPane();
 
         TextArea programArea = new TextArea();
         programArea.setFont(Font.font("Consolas", FontWeight.THIN, 16));
         programArea.autosize();
+        BorderPane buttonPane = new BorderPane();
         Button button = new Button("Build");
-        button.setAlignment(Pos.BASELINE_CENTER);
 
         firstLine.setCenter(programArea);
-        firstLine.setRight(button);
+        firstLine.setRight(buttonPane);
+
+        buttonPane.setCenter(button);
+        buttonPane.prefWidthProperty().bind(button.widthProperty().multiply(1.5));
 
         TextArea viewer = new TextArea();
         viewer.setEditable(false);
         viewer.setFont(Font.font("Consolas", FontWeight.THIN, 16));
         viewer.autosize();
-        vBox.getChildren().add(firstLine);
-        vBox.getChildren().add(viewer);
+        vertical.setTop(firstLine);
+        vertical.setCenter(viewer);
 
         button.setOnAction(actionEvent -> {
             WhileLexer whileLexer = new WhileLexer(CharStreams.fromString(programArea.getText()));
@@ -80,7 +83,7 @@ public class DerivationTreeBuilderViewer extends Application {
             }
         });
 
-        Scene scene = new Scene(vBox);
+        Scene scene = new Scene(vertical);
         stage.setScene(scene);
         stage.setTitle("Derivation Tree Builder v0.1 (C) Mikhail Ushakov");
 

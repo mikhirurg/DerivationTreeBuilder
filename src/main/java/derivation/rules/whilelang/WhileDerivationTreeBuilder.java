@@ -114,7 +114,8 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
 
     public void processSkip(WhileSkip skipStatement) {
         DerivationTreeNode baseNode = currentNode;
-        WhileSkipRule rule = new WhileSkipRule(state);
+        baseNode.setInitialState(state.cloneState());
+        WhileSkipRule rule = new WhileSkipRule(skipStatement, state);
         baseNode.setRule(rule);
     }
 

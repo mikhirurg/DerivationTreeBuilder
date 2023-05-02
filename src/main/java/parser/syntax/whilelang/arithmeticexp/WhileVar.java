@@ -5,7 +5,7 @@ import converter.WhileDerivationTreeConverter;
 import parser.syntax.whilelang.arithmeticexp.exceptions.UninitializedVariableException;
 import states.WhileState;
 
-public class WhileVar implements WhileArithmeticExpression {
+public class WhileVar implements WhileArithmeticExpression, Comparable {
 
     private final String varName;
 
@@ -54,5 +54,11 @@ public class WhileVar implements WhileArithmeticExpression {
     @Override
     public void accept(DerivationTreeConverter converter) {
         ((WhileDerivationTreeConverter) converter).processVar(this);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        WhileVar other = (WhileVar) o;
+        return varName.compareTo(other.getVarName());
     }
 }
