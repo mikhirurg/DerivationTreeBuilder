@@ -3,12 +3,9 @@ import derivation.rules.DerivationTreeBuilder;
 import derivation.rules.DerivationTreeNode;
 import derivation.rules.whilelang.WhileDerivationTreeBuilder;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -36,6 +33,22 @@ public class DerivationTreeBuilderViewer extends Application {
         BorderPane vertical = new BorderPane();
         BorderPane firstLine = new BorderPane();
 
+        VBox controls = new VBox();
+        HBox secondLine = new HBox();
+
+        CheckBox isExplicitState = new CheckBox("Explicit state representation");
+        isExplicitState.setSelected(true);
+
+        TextField depthTextField = new TextField(Long.toString(DerivationTreeBuilder.DERIVATION_DEPTH_LIMIT));
+        Label depthTextLabel = new Label("Derivation depth:");
+        HBox depth = new HBox();
+        depth.getChildren().add(depthTextLabel);
+        depth.getChildren().add(depthTextField);
+
+        secondLine.getChildren().add(isExplicitState);
+        secondLine.getChildren().add(depth);
+        secondLine.setSpacing(50);
+
         TextArea programArea = new TextArea();
         programArea.setFont(Font.font("Consolas", FontWeight.THIN, 16));
         programArea.autosize();
@@ -45,6 +58,10 @@ public class DerivationTreeBuilderViewer extends Application {
         firstLine.setCenter(programArea);
         firstLine.setRight(buttonPane);
 
+        controls.getChildren().add(firstLine);
+        controls.getChildren().add(secondLine);
+        controls.setSpacing(10);
+
         buttonPane.setCenter(button);
         buttonPane.prefWidthProperty().bind(button.widthProperty().multiply(1.5));
 
@@ -52,7 +69,7 @@ public class DerivationTreeBuilderViewer extends Application {
         viewer.setEditable(false);
         viewer.setFont(Font.font("Consolas", FontWeight.THIN, 16));
         viewer.autosize();
-        vertical.setTop(firstLine);
+        vertical.setTop(controls);
         vertical.setCenter(viewer);
 
         button.setOnAction(actionEvent -> {
@@ -71,15 +88,21 @@ public class DerivationTreeBuilderViewer extends Application {
                 walker.walk(listener, tree);
                 WhileStatement p = listener.getProgram();
 
-                DerivationTreeBuilder builder = new WhileDerivationTreeBuilder();
+                long depthVal = Long.parseLong(depthTextField.getText());
+
+                boolean isExplicit = isExplicitState.isSelected();
+
+                DerivationTreeBuilder builder = new WhileDerivationTreeBuilder(depthVal);
                 DerivationTreeNode derivationTree = builder.buildDerivationTree(p, new WhileState(new HashMap<>()));
-                WhileASCIIDerivationTreeConverter asciiDerivationTreeConverter = new WhileASCIIDerivationTreeConverter();
+                WhileASCIIDerivationTreeConverter asciiDerivationTreeConverter = new WhileASCIIDerivationTreeConverter(isExplicit);
 
                 viewer.setText(asciiDerivationTreeConverter.convert(derivationTree) + "\n" + builder.getState().getTextRepresentation());
             } catch (ParseCancellationException e) {
                 viewer.setText("Program parsing error at: " + e.getMessage());
             } catch (UninitializedVariableException e) {
                 viewer.setText("Unable to build a derivation tree: " + e.getMessage());
+            } catch (NumberFormatException e) {
+                viewer.setText("Wrong value for the depth param!: " + e.getMessage());
             }
         });
 

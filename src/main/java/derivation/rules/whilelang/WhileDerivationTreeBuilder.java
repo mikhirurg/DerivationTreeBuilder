@@ -16,7 +16,14 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
 
     private WhileState state;
 
+    private final long depthLimit;
+
     public WhileDerivationTreeBuilder() {
+        this(DERIVATION_DEPTH_LIMIT);
+    }
+
+    public WhileDerivationTreeBuilder(long depthLimit) {
+        this.depthLimit = depthLimit;
         this.derivationTreeNode = new DerivationTreeNode();
         this.currentNode = derivationTreeNode;
     }
@@ -36,6 +43,11 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
         return state;
     }
 
+    @Override
+    public long getDerivationDepthLimit() {
+        return depthLimit;
+    }
+
     public void processWhile(WhileWhile whileStatement) {
 
         DerivationTreeNode baseNode = currentNode;
@@ -47,11 +59,21 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
 
             currentNode = new DerivationTreeNode();
             DerivationTreeNode subNode1 = currentNode;
-            whileStatement.getStatement().accept(this);
+            subNode1.setDepth(baseNode.getDepth() + 1);
+            if (subNode1.getDepth() <= getDerivationDepthLimit()) {
+                whileStatement.getStatement().accept(this);
+            } else {
+                processDepthLimit();
+            }
 
             currentNode = new DerivationTreeNode();
             DerivationTreeNode subNode2 = currentNode;
-            whileStatement.accept(this);
+            subNode2.setDepth(baseNode.getDepth() + 1);
+            if (subNode1.getDepth() <= getDerivationDepthLimit()) {
+                whileStatement.accept(this);
+            } else {
+                processDepthLimit();
+            }
 
             baseNode.getChildren().add(subNode1);
             baseNode.getChildren().add(subNode2);
@@ -69,11 +91,21 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
 
         currentNode = new DerivationTreeNode();
         DerivationTreeNode subNode1 = currentNode;
-        comp.getStatement1().accept(this);
+        subNode1.setDepth(baseNode.getDepth() + 1);
+        if (subNode1.getDepth() <= getDerivationDepthLimit()) {
+            comp.getStatement1().accept(this);
+        } else {
+            processDepthLimit();
+        }
 
         currentNode = new DerivationTreeNode();
         DerivationTreeNode subNode2 = currentNode;
-        comp.getStatement2().accept(this);
+        subNode2.setDepth(baseNode.getDepth() + 1);
+        if (subNode1.getDepth() <= getDerivationDepthLimit()) {
+            comp.getStatement2().accept(this);
+        } else {
+            processDepthLimit();
+        }
 
         baseNode.getChildren().add(subNode1);
         baseNode.getChildren().add(subNode2);
@@ -90,7 +122,12 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
 
             currentNode = new DerivationTreeNode();
             DerivationTreeNode subNode = currentNode;
-            ifStatement.getStatement1().accept(this);
+            subNode.setDepth(baseNode.getDepth() + 1);
+            if (subNode.getDepth() <= getDerivationDepthLimit()) {
+                ifStatement.getStatement1().accept(this);
+            } else {
+                processDepthLimit();
+            }
 
             baseNode.getChildren().add(subNode);
         } else {
@@ -99,7 +136,12 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
 
             currentNode = new DerivationTreeNode();
             DerivationTreeNode subNode = currentNode;
-            ifStatement.getStatement2().accept(this);
+            subNode.setDepth(baseNode.getDepth() + 1);
+            if (subNode.getDepth() <= getDerivationDepthLimit()) {
+                ifStatement.getStatement2().accept(this);
+            } else {
+                processDepthLimit();
+            }
 
             baseNode.getChildren().add(subNode);
         }
@@ -116,6 +158,13 @@ public class WhileDerivationTreeBuilder implements DerivationTreeBuilder {
         DerivationTreeNode baseNode = currentNode;
         baseNode.setInitialState(state.cloneState());
         WhileSkipRule rule = new WhileSkipRule(skipStatement, state);
+        baseNode.setRule(rule);
+    }
+
+    public void processDepthLimit() {
+        DerivationTreeNode baseNode = currentNode;
+        baseNode.setInitialState(state.cloneState());
+        WhileDepthLimitRule rule = new WhileDepthLimitRule(state);
         baseNode.setRule(rule);
     }
 

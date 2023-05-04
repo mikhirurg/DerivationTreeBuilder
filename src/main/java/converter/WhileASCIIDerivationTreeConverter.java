@@ -11,11 +11,16 @@ import java.util.*;
 
 public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeConverter {
 
-    private final boolean IS_EXPLICIT_STATE_REPRESENTATION = true;
     private final StringBuilder currentBuilder;
+    private boolean isExplicitState;
+
+    public WhileASCIIDerivationTreeConverter(boolean explicitState) {
+        this.currentBuilder = new StringBuilder();
+        this.isExplicitState = explicitState;
+    }
 
     public WhileASCIIDerivationTreeConverter() {
-        this.currentBuilder = new StringBuilder();
+        this(true);
     }
 
     public static class Pair<K, V> {
@@ -504,10 +509,16 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
     }
 
     @Override
+    public void processDepthLimit() {
+        currentBuilder.setLength(0);
+        currentBuilder.append("[...]\n...");
+    }
+
+    @Override
     public void processWhileState(WhileState state) {
         currentBuilder.setLength(0);
 
-        if (IS_EXPLICIT_STATE_REPRESENTATION) {
+        if (isExplicitState) {
             currentBuilder.append("s_{");
             for (Map.Entry<WhileVar, Integer> entry : state.getMap().entrySet()) {
                 currentBuilder.append(entry.getKey().getVarName()).append("=").append(entry.getValue()).append(", ");

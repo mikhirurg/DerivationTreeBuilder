@@ -53,5 +53,7 @@ public interface WhileDerivationTreeConverter extends DerivationTreeConverter {
 
     void processWhileTTRule(WhileWhileTTRule whileTTRule);
 
+    void processDepthLimit();
+
     void processWhileState(WhileState state);
 }

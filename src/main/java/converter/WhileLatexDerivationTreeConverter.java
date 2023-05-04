@@ -134,6 +134,11 @@ public class WhileLatexDerivationTreeConverter implements WhileDerivationTreeCon
     }
 
     @Override
+    public void processDepthLimit() {
+
+    }
+
+    @Override
     public void processWhileState(WhileState state) {
 
     }

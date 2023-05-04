@@ -8,6 +8,7 @@ import states.WhileState;
 public class WhileAssignmentRule extends WhileDerivationRule implements DerivationAxiom {
 
     private final WhileAssignment assignment;
+
     public WhileAssignmentRule(WhileAssignment assignment, WhileState state) {
         super(state);
         this.assignment = assignment;
@@ -17,6 +18,7 @@ public class WhileAssignmentRule extends WhileDerivationRule implements Derivati
     public WhileState getState() {
         return initialState;
     }
+
 
     @Override
     public void accept(DerivationTreeConverter converter) {

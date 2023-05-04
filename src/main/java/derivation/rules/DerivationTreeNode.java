@@ -12,8 +12,14 @@ public class DerivationTreeNode {
 
     private final ArrayList<DerivationTreeNode> children;
 
+    private long depth = 0;
+
     public DerivationTreeNode() {
         children = new ArrayList<>();
+    }
+
+    public long getDepth() {
+        return depth;
     }
 
     public Derivable getRule() {
@@ -22,6 +28,10 @@ public class DerivationTreeNode {
 
     public ArrayList<DerivationTreeNode> getChildren() {
         return children;
+    }
+
+    public void setDepth(long depth) {
+        this.depth = depth;
     }
 
     public void setRule(Derivable rule) {
