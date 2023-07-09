@@ -49,9 +49,9 @@ x:=27;
 ```
 
 </td>
-[ASCII]()
+
 <td>
-  
+[ASCII](/demo/demo1/ascii_tree.txt)
 </td>
 
 <td>
@@ -76,7 +76,7 @@ while i <= x do
 </td>
 
 <td>
-  
+[ASCII](/demo/demo2/ascii_tree.txt)
 </td>
 
 <td>
@@ -101,7 +101,7 @@ while y <= x do
 </td>
 
 <td>
-  
+[ASCII](/demo/demo3/ascii_tree.txt)
 </td>
 
 <td>
@@ -129,7 +129,7 @@ while 0 <= i do
 </td>
 
 <td>
-  
+[ASCII](/demo/demo4/ascii_tree.txt)
 </td>
 
 <td>
