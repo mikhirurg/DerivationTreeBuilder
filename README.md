@@ -57,8 +57,9 @@ x:=27;
 
 <td>
   
-[LateX](/demo/demo1/latex_tree.tex)
-[Image](/demo/demo1/img.png)
+- [LateX](/demo/demo1/latex_tree.tex)
+
+- [Image](/demo/demo1/img.png)
 </td>
 
 </tr>
@@ -85,8 +86,9 @@ while i <= x do
 
 <td>
 
-[LateX](/demo/demo2/latex_tree.tex)
-[Image](/demo/demo2/img.png)
+- [LateX](/demo/demo2/latex_tree.tex)
+
+- [Image](/demo/demo2/img.png)
 </td>
 
 </tr>
@@ -113,8 +115,9 @@ while y <= x do
 
 <td>
 
-[LateX](/demo/demo3/latex_tree.tex)
-[Image](/demo/demo3/img.png)
+- [LateX](/demo/demo3/latex_tree.tex)
+
+- [Image](/demo/demo3/img.png)
 </td>
 
 </tr>
@@ -144,8 +147,9 @@ while 0 <= i do
 
 <td>
 
-[LateX](/demo/demo4/latex_tree.tex)
-[Image](/demo/demo4/img.png)
+- [LateX](/demo/demo4/latex_tree.tex)
+
+- [Image](/demo/demo4/img.png)
 </td>
 
 </tr>
