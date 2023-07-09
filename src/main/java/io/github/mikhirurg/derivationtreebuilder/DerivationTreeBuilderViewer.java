@@ -4,7 +4,14 @@ import io.github.mikhirurg.derivationtreebuilder.converter.whilelang.WhileASCIID
 import io.github.mikhirurg.derivationtreebuilder.converter.whilelang.WhileLatexDerivationTreeConverter;
 import io.github.mikhirurg.derivationtreebuilder.derivation.rules.DerivationTreeBuilder;
 import io.github.mikhirurg.derivationtreebuilder.derivation.rules.DerivationTreeNode;
+import io.github.mikhirurg.derivationtreebuilder.derivation.rules.states.WhileState;
 import io.github.mikhirurg.derivationtreebuilder.derivation.rules.whilelang.WhileDerivationTreeBuilder;
+import io.github.mikhirurg.derivationtreebuilder.syntax.ThrowableErrorListener;
+import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.WhileListener;
+import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.arithmeticexp.exceptions.UninitializedVariableException;
+import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.gen.WhileLexer;
+import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.gen.WhileParser;
+import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.statements.WhileStatement;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -21,13 +28,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import io.github.mikhirurg.derivationtreebuilder.syntax.ThrowableErrorListener;
-import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.WhileListener;
-import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.arithmeticexp.exceptions.UninitializedVariableException;
-import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.gen.WhileLexer;
-import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.gen.WhileParser;
-import io.github.mikhirurg.derivationtreebuilder.syntax.whilelang.statements.WhileStatement;
-import io.github.mikhirurg.derivationtreebuilder.derivation.rules.states.WhileState;
 
 import java.util.HashMap;
 
@@ -45,11 +45,11 @@ public class DerivationTreeBuilderViewer extends Application {
         VBox controls = new VBox();
         HBox secondLine = new HBox();
 
-        CheckBox isExplicitState = new CheckBox("Explicit state representation");
+        CheckBox isExplicitState = new CheckBox(App.getString("checkbox.is_explicit_state"));
         isExplicitState.setSelected(true);
 
         TextField depthTextField = new TextField(Long.toString(DerivationTreeBuilder.DERIVATION_DEPTH_LIMIT));
-        Label depthTextLabel = new Label("Derivation depth:");
+        Label depthTextLabel = new Label(App.getString("label.depth_text_label"));
         HBox depth = new HBox();
         depth.getChildren().add(depthTextLabel);
         depth.getChildren().add(depthTextField);
@@ -62,7 +62,7 @@ public class DerivationTreeBuilderViewer extends Application {
         programArea.setFont(Font.font("Consolas", FontWeight.THIN, 16));
         programArea.autosize();
         BorderPane buttonPane = new BorderPane();
-        Button button = new Button("Build");
+        Button button = new Button(App.getString("button.build"));
 
         firstLine.setCenter(programArea);
         firstLine.setRight(buttonPane);
@@ -109,17 +109,17 @@ public class DerivationTreeBuilderViewer extends Application {
 
                 viewer.setText(derivationTreeConverter.convert(derivationTree) + "\n" + builder.getState().getTextRepresentation());
             } catch (ParseCancellationException e) {
-                viewer.setText("Program parsing error at: " + e.getMessage());
+                viewer.setText(App.getString("error.parsing") + e.getMessage());
             } catch (UninitializedVariableException e) {
-                viewer.setText("Unable to build a derivation tree: " + e.getMessage());
+                viewer.setText(App.getString("error.derivation_tree") + e.getMessage());
             } catch (NumberFormatException e) {
-                viewer.setText("Wrong value for the depth param!: " + e.getMessage());
+                viewer.setText(App.getString("error.wrong_depth_value") + e.getMessage());
             }
         });
 
         Scene scene = new Scene(vertical);
         stage.setScene(scene);
-        stage.setTitle("Derivation Tree Builder v0.1 (C) Mikhail Ushakov");
+        stage.setTitle(App.getString("title"));
 
         stage.show();
     }

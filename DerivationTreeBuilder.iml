@@ -18,6 +18,12 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-swing:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-swing:win:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.12.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scilab.forge:jlatexmath:1.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.scilab.forge:jlatexmath-font-greek:1.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.scilab.forge:jlatexmath-font-cyrillic:1.0.7" level="project" />
+    <orderEntry type="library" name="Maven: com.formdev:flatlaf:3.1.1" level="project" />
   </component>
 </module>
