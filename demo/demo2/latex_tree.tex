@@ -1,0 +1,138 @@
+\documentclass[a4paper,landscape]{article}
+\usepackage{a4wide}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{amsfonts}
+\usepackage{prooftree}
+\usepackage{lstwhile}
+\usepackage{scdefspub}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{adjustbox}\begin{document}
+\noindent\makebox[\linewidth]{
+\resizebox{\paperwidth}{!}{
+\begin{prooftree}
+\[
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{x $\coloneqq$ 5}}{\mbox{s$_{}$}}{\mbox{s$_{5}$}}
+\]
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{y $\coloneqq$ 1}}{\mbox{s$_{5}$}}{\mbox{s$_{5, 1}$}}
+\]
+\justifies
+\nstrans{\mbox{x $\coloneqq$ 5; y $\coloneqq$ 1}}{\mbox{s$_{}$}}{\mbox{s$_{5, 1}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\]
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ 1}}{\mbox{s$_{5, 1}$}}{\mbox{s$_{1, 5, 1}$}}
+\]
+\justifies
+\nstrans{\mbox{x $\coloneqq$ 5; y $\coloneqq$ 1; i $\coloneqq$ 1}}{\mbox{s$_{}$}}{\mbox{s$_{1, 5, 1}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\]
+\[
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x)}}{\mbox{s$_{1, 5, 1}$}}{\mbox{s$_{1, 5, 5}$}}
+\]
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 5, 5}$}}{\mbox{s$_{1, 4, 5}$}}
+\]
+\justifies
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 5, 1}$}}{\mbox{s$_{1, 4, 5}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\]
+\[
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x)}}{\mbox{s$_{1, 4, 5}$}}{\mbox{s$_{1, 4, 20}$}}
+\]
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 4, 20}$}}{\mbox{s$_{1, 3, 20}$}}
+\]
+\justifies
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 4, 5}$}}{\mbox{s$_{1, 3, 20}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\]
+\[
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x)}}{\mbox{s$_{1, 3, 20}$}}{\mbox{s$_{1, 3, 60}$}}
+\]
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 3, 60}$}}{\mbox{s$_{1, 2, 60}$}}
+\]
+\justifies
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 3, 20}$}}{\mbox{s$_{1, 2, 60}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\]
+\[
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x)}}{\mbox{s$_{1, 2, 60}$}}{\mbox{s$_{1, 2, 120}$}}
+\]
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 2, 120}$}}{\mbox{s$_{1, 1, 120}$}}
+\]
+\justifies
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 2, 60}$}}{\mbox{s$_{1, 1, 120}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\]
+\[
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x)}}{\mbox{s$_{1, 1, 120}$}}{\mbox{s$_{1, 1, 120}$}}
+\]
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 1, 120}$}}{\mbox{s$_{1, 0, 120}$}}
+\]
+\justifies
+\nstrans{\mbox{y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1)}}{\mbox{s$_{1, 1, 120}$}}{\mbox{s$_{1, 0, 120}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\]
+\[
+\axiomrule{[\mbox{while$^{ff}_{ns}$}]}
+\nstrans{\mbox{while $(i \leq x)$ do (y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1))}}{\mbox{s$_{1, 0, 120}$}}{\mbox{s$_{1, 0, 120}$}}
+\]
+\justifies
+\nstrans{\mbox{while $(i \leq x)$ do (y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1))}}{\mbox{s$_{1, 1, 120}$}}{\mbox{s$_{1, 0, 120}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(i \leq x)$ do (y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1))}}{\mbox{s$_{1, 2, 60}$}}{\mbox{s$_{1, 0, 120}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(i \leq x)$ do (y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1))}}{\mbox{s$_{1, 3, 20}$}}{\mbox{s$_{1, 0, 120}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(i \leq x)$ do (y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1))}}{\mbox{s$_{1, 4, 5}$}}{\mbox{s$_{1, 0, 120}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(i \leq x)$ do (y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1))}}{\mbox{s$_{1, 5, 1}$}}{\mbox{s$_{1, 0, 120}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{x $\coloneqq$ 5; y $\coloneqq$ 1; i $\coloneqq$ 1; while $(i \leq x)$ do (y $\coloneqq$ (y \cdot x); x $\coloneqq$ (x - 1))}}{\mbox{s$_{}$}}{\mbox{s$_{1, 0, 120}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\end{prooftree}}
+}
+\end{document}

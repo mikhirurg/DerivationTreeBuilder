@@ -1,0 +1,120 @@
+\documentclass[a4paper,landscape]{article}
+\usepackage{a4wide}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{amsfonts}
+\usepackage{prooftree}
+\usepackage{lstwhile}
+\usepackage{scdefspub}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{adjustbox}\begin{document}
+\noindent\makebox[\linewidth]{
+\resizebox{\paperwidth}{!}{
+\begin{prooftree}
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ 0}}{\mbox{s$_{}$}}{\mbox{s$_{0}$}}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ (i + 1)}}{\mbox{s$_{0}$}}{\mbox{s$_{1}$}}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ (i + 1)}}{\mbox{s$_{1}$}}{\mbox{s$_{2}$}}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ (i + 1)}}{\mbox{s$_{2}$}}{\mbox{s$_{3}$}}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ (i + 1)}}{\mbox{s$_{3}$}}{\mbox{s$_{4}$}}
+\]
+\[
+\axiomrule{[\mbox{while$^{ff}_{ns}$}]}
+\nstrans{\mbox{while $(i \leq 3)$ do (i $\coloneqq$ (i + 1))}}{\mbox{s$_{4}$}}{\mbox{s$_{4}$}}
+\]
+\justifies
+\nstrans{\mbox{while $(i \leq 3)$ do (i $\coloneqq$ (i + 1))}}{\mbox{s$_{3}$}}{\mbox{s$_{4}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(i \leq 3)$ do (i $\coloneqq$ (i + 1))}}{\mbox{s$_{2}$}}{\mbox{s$_{4}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(i \leq 3)$ do (i $\coloneqq$ (i + 1))}}{\mbox{s$_{1}$}}{\mbox{s$_{4}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(i \leq 3)$ do (i $\coloneqq$ (i + 1))}}{\mbox{s$_{0}$}}{\mbox{s$_{4}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{i $\coloneqq$ 0; while $(i \leq 3)$ do (i $\coloneqq$ (i + 1))}}{\mbox{s$_{}$}}{\mbox{s$_{4}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ (i - 1)}}{\mbox{s$_{4}$}}{\mbox{s$_{3}$}}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ (i - 1)}}{\mbox{s$_{3}$}}{\mbox{s$_{2}$}}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ (i - 1)}}{\mbox{s$_{2}$}}{\mbox{s$_{1}$}}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ (i - 1)}}{\mbox{s$_{1}$}}{\mbox{s$_{0}$}}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{i $\coloneqq$ (i - 1)}}{\mbox{s$_{0}$}}{\mbox{s$_{-1}$}}
+\]
+\[
+\axiomrule{[\mbox{while$^{ff}_{ns}$}]}
+\nstrans{\mbox{while $(0 \leq i)$ do (i $\coloneqq$ (i - 1))}}{\mbox{s$_{-1}$}}{\mbox{s$_{-1}$}}
+\]
+\justifies
+\nstrans{\mbox{while $(0 \leq i)$ do (i $\coloneqq$ (i - 1))}}{\mbox{s$_{0}$}}{\mbox{s$_{-1}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(0 \leq i)$ do (i $\coloneqq$ (i - 1))}}{\mbox{s$_{1}$}}{\mbox{s$_{-1}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(0 \leq i)$ do (i $\coloneqq$ (i - 1))}}{\mbox{s$_{2}$}}{\mbox{s$_{-1}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(0 \leq i)$ do (i $\coloneqq$ (i - 1))}}{\mbox{s$_{3}$}}{\mbox{s$_{-1}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{while $(0 \leq i)$ do (i $\coloneqq$ (i - 1))}}{\mbox{s$_{4}$}}{\mbox{s$_{-1}$}}
+\using{[\mbox{while$^{tt}_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{i $\coloneqq$ 0; while $(i \leq 3)$ do (i $\coloneqq$ (i + 1)); while $(0 \leq i)$ do (i $\coloneqq$ (i - 1))}}{\mbox{s$_{}$}}{\mbox{s$_{-1}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\end{prooftree}}
+}
+\end{document}

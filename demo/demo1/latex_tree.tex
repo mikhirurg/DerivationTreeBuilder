@@ -1,0 +1,39 @@
+\documentclass[a4paper,landscape]{article}
+\usepackage{a4wide}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{amsfonts}
+\usepackage{prooftree}
+\usepackage{lstwhile}
+\usepackage{scdefspub}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{adjustbox}\begin{document}
+\noindent\makebox[\linewidth]{
+\resizebox{\paperwidth}{!}{
+\begin{prooftree}
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{x $\coloneqq$ 27}}{\mbox{s$_{}$}}{\mbox{s$_{27}$}}
+\]
+\[
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{y $\coloneqq$ 8}}{\mbox{s$_{27}$}}{\mbox{s$_{27, 8}$}}
+\]
+\[
+\axiomrule{[\mbox{ass$_{ns}$}]}
+\nstrans{\mbox{z $\coloneqq$ 0}}{\mbox{s$_{27, 8}$}}{\mbox{s$_{27, 8, 0}$}}
+\]
+\justifies
+\nstrans{\mbox{y $\coloneqq$ 8; z $\coloneqq$ 0}}{\mbox{s$_{27}$}}{\mbox{s$_{27, 8, 0}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\]
+\justifies
+\nstrans{\mbox{x $\coloneqq$ 27; y $\coloneqq$ 8; z $\coloneqq$ 0}}{\mbox{s$_{}$}}{\mbox{s$_{27, 8, 0}$}}
+\using{[\mbox{comp$_{ns}$}]}
+\end{prooftree}}
+}
+\end{document}
