@@ -24,7 +24,7 @@ java -jar DerivationTreeBuilder.jar
 <img src="/img/img1.png" alt="Demo 1" width=800>
 
 On the top part of the application window, there is a text area for the input program. 
-Below that there is located the tre generation settings: 
+Below that there is located the tree generation settings: 
 - Do we want to use explicit state representation
 - What is the derivation depth of the tree
 - What tree representation format do we want (ASCII / LateX code)
