@@ -4,7 +4,7 @@
 
 ## Project description
 
-DerivationTreeBuilder is a tool that allows you to generate natural semantics derivation trees for the given programs in While programming language.
+DerivationTreeBuilder is a tool that allows you to generate natural semantics derivation trees for the given While programming language programs.
 
 ## Installation guide
 
