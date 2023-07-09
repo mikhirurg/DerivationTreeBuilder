@@ -23,7 +23,21 @@ java -jar DerivationTreeBuilder.jar
 
 <img src="/img/img1.png" alt="Demo 1" width=800>
 
+On the top part of the application window, there is a text area for the input program. Below that there is located the tre generation settings: 
+- Do we want to use explicit state representation
+- What is the derivation depth of the tree
+- What tree representation format do we want (ASCII / LateX code)
+Also, there is a button called "Build", which initiates the derivation tree-building process.
+And, at the bottom of the application window, there is a second big text area that displays the output with the derivation tree.
+
 ## Examples
+
+|While program                                                      | ASCII tree | LateX tree |
+|-------------------------------------------------------------------|------------|------------|
+|x:=27; (y:=8; z:=0)                                                |            |            |
+|x:=5; y:=1; i:=1; while i <= x do (y := y * x; x := x - 1)         |            |            |
+|x:=27; y:=8; z:=0; while y <= x do (z := z + 1; x := x - y)        |            |            |
+|(i:=0; while i <= 3 do (i := i + 1)); while 0 <= i do (i := i - 1) |            |            |
 
 ## Contributing
 
