@@ -29,7 +29,7 @@ Below that there is located the tree generation settings:
 - What is the derivation depth of the tree
 - What tree representation format do we want (ASCII / LateX code)
 
-Also, there is a button called "Build", which initiates the derivation tree-building process.
+Also, there is a button called "Build" which initiates the process of automatic generation of the derivation tree.
 
 And, at the bottom of the application window, there is a second big text area that displays the output with the derivation tree.
 
