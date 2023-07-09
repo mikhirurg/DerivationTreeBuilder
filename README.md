@@ -51,11 +51,14 @@ x:=27;
 </td>
 
 <td>
+  
 [ASCII](/demo/demo1/ascii_tree.txt)
 </td>
 
 <td>
-
+  
+[LateX](/demo/demo1/latex_tree.tex)
+[Image](/demo/demo1/img.png)
 </td>
 
 </tr>
@@ -76,11 +79,14 @@ while i <= x do
 </td>
 
 <td>
+  
 [ASCII](/demo/demo2/ascii_tree.txt)
 </td>
 
 <td>
 
+[LateX](/demo/demo2/latex_tree.tex)
+[Image](/demo/demo2/img.png)
 </td>
 
 </tr>
@@ -101,11 +107,14 @@ while y <= x do
 </td>
 
 <td>
+
 [ASCII](/demo/demo3/ascii_tree.txt)
 </td>
 
 <td>
 
+[LateX](/demo/demo3/latex_tree.tex)
+[Image](/demo/demo3/img.png)
 </td>
 
 </tr>
@@ -129,11 +138,14 @@ while 0 <= i do
 </td>
 
 <td>
+  
 [ASCII](/demo/demo4/ascii_tree.txt)
 </td>
 
 <td>
 
+[LateX](/demo/demo4/latex_tree.tex)
+[Image](/demo/demo4/img.png)
 </td>
 
 </tr>
