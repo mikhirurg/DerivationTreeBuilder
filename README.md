@@ -33,12 +33,111 @@ And, at the bottom of the application window, there is a second big text area th
 
 ## Examples
 
-|While program                                                            | ASCII tree | LateX tree |
-|-------------------------------------------------------------------------|------------|------------|
-|```x:=27; (y:=8; z:=0)```                                                |            |            |
-|```x:=5; y:=1; i:=1; while i <= x do (y := y * x; x := x - 1)```         |            |            |
-|```x:=27; y:=8; z:=0; while y <= x do (z := z + 1; x := x - y)```        |            |            |
-|```(i:=0; while i <= 3 do (i := i + 1)); while 0 <= i do (i := i - 1)``` |            |            |
+<table>
+<tr>
+<td> While program </td> <td> ASCII tree </td> <td> LateX tree </td>
+</tr>
+<tr>
+<td>
+  
+```c
+x:=27;
+(
+    y:=8;
+    z:=0
+)
+```
+
+</td>
+[ASCII]()
+<td>
+  
+</td>
+
+<td>
+
+</td>
+
+</tr>
+<tr>
+<td>
+  
+```c
+x:=5;
+y:=1;
+i:=1;
+while i <= x do
+(
+    y := y * x;
+    x := x - 1
+)
+```
+
+</td>
+
+<td>
+  
+</td>
+
+<td>
+
+</td>
+
+</tr>
+<tr>
+<td>
+  
+```c
+x:=27;
+y:=8;
+z:=0;
+while y <= x do
+(
+    z := z + 1;
+    x := x - y
+)
+```
+
+</td>
+
+<td>
+  
+</td>
+
+<td>
+
+</td>
+
+</tr>
+<tr>
+<td>
+  
+```c
+(
+    i:=0;
+    while i <= 3 do
+    (
+        i := i + 1
+    )
+);
+while 0 <= i do
+(
+    i := i - 1
+)
+```
+
+</td>
+
+<td>
+  
+</td>
+
+<td>
+
+</td>
+
+</tr>
+</table>
 
 ## Contributing
 
