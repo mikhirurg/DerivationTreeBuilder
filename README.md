@@ -33,6 +33,10 @@ Also, there is a button called "Build" which initiates the process of automatic 
 
 And, at the bottom of the application window, there is a second big text area that displays the output with the derivation tree.
 
+### Compiling the produced LateX code
+
+In order to build the PDF document using the produced LateX code, use the packages located [here](/latex/).
+
 ## Examples
 
 <table>
