@@ -124,7 +124,7 @@ public class WhileLatexDerivationTreeConverter implements WhileDerivationTreeCon
         currentBuilder.setLength(0);
         currentBuilder.append("(")
                 .append(left)
-                .append(" \\cdot ")
+                .append(" $\\cdot$ ")
                 .append(right)
                 .append(")");
     }
