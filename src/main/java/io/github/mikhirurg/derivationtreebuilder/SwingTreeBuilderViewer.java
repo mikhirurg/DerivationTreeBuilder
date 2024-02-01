@@ -192,8 +192,8 @@ public class SwingTreeBuilderViewer {
     private static void createAndShowGUI() {
         JFrame frame = new JFrame(App.getString("title"));
 
-        double width = App.getScreenDimension().getWidth() / 3;
-        double height = App.getScreenDimension().getHeight() / 3;
+        double width = App.getScreenDimension().getWidth() / 2.5;
+        double height = App.getScreenDimension().getHeight() / 2.5;
 
         frame.setPreferredSize(new Dimension((int) width, (int) height));
 

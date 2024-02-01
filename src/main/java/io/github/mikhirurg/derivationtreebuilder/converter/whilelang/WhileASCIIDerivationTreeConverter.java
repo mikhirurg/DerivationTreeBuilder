@@ -238,6 +238,8 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         mult.getLeft().accept(this);
         String left = currentBuilder.toString();
 
+        currentBuilder.setLength(0);
+
         mult.getRight().accept(this);
         String right = currentBuilder.toString();
 
@@ -256,6 +258,8 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         plus.getLeft().accept(this);
         String left = currentBuilder.toString();
 
+        currentBuilder.setLength(0);
+
         plus.getRight().accept(this);
         String right = currentBuilder.toString();
 
@@ -273,6 +277,8 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
 
         sub.getLeft().accept(this);
         String left = currentBuilder.toString();
+
+        currentBuilder.setLength(0);
 
         sub.getRight().accept(this);
         String right = currentBuilder.toString();
@@ -298,8 +304,12 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         eq.getLeft().accept(this);
         String left = currentBuilder.toString();
 
+        currentBuilder.setLength(0);
+
         eq.getRight().accept(this);
         String right = currentBuilder.toString();
+
+        currentBuilder.setLength(0);
 
         currentBuilder.append("(")
                 .append(left)
@@ -327,8 +337,12 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         leq.getLeft().accept(this);
         String left = currentBuilder.toString();
 
+        currentBuilder.setLength(0);
+
         leq.getRight().accept(this);
         String right = currentBuilder.toString();
+
+        currentBuilder.setLength(0);
 
         currentBuilder.append("(")
                 .append(left)
@@ -353,8 +367,12 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         and.getLeft().accept(this);
         String left = currentBuilder.toString();
 
+        currentBuilder.setLength(0);
+
         and.getRight().accept(this);
         String right = currentBuilder.toString();
+
+        currentBuilder.setLength(0);
 
         currentBuilder.append("(")
                 .append(left)
@@ -369,6 +387,8 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
 
         assignment.getVariable().accept(this);
         String variableText = currentBuilder.toString();
+
+        currentBuilder.setLength(0);
 
         assignment.getExpression().accept(this);
         String expressionText = currentBuilder.toString();
@@ -416,7 +436,7 @@ public class WhileASCIIDerivationTreeConverter implements WhileDerivationTreeCon
         currentBuilder.setLength(0);
         currentBuilder.append("if ").append(conditionText)
                 .append(" then")
-                .append("(")
+                .append(" (")
                 .append(statement1Text)
                 .append(") ")
                 .append("else")
